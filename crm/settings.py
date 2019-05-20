@@ -131,14 +131,13 @@ AUTH_USER_MODEL = 'common.User'
 STORAGE_TYPE = os.getenv('STORAGE_TYPE', 'normal')
 
 if STORAGE_TYPE == 'normal':
-
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
     MEDIA_URL = '/media/'
 
     STATIC_URL = '/static/'
-    # STATICFILES_DIRS = (BASE_DIR + '/static',)
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATICFILES_DIRS = (BASE_DIR + '/static',)
     COMPRESS_ROOT = BASE_DIR + '/static/'
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 elif STORAGE_TYPE == 's3-storage':
 
@@ -261,6 +260,4 @@ ENABLE_GOOGLE_LOGIN = os.getenv('ENABLE_GOOGLE_LOGIN', False)
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL')
-    )
-}
+        default=os.getenv('DATABASE_URL'))}
