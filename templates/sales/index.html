@@ -1,0 +1,186 @@
+{% extends 'sales/base.html' %}
+{% load staticfiles %}
+{% block content %}
+{% load common_tags %}
+
+<div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-md-12 grid-margin">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <h4 class="font-weight-bold mb-0">Dashboard </h4>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-primary btn-icon-text btn-rounded">
+                      <i class="ti-clipboard btn-icon-prepend"></i>Full report
+                    </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-title text-md-center text-xl-left">ACCOUNTS</p>
+                  <div class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
+                    <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">{{accounts|length}}</h3>
+                    <i class="ti-calendar icon-md text-muted mb-0 mb-md-3 mb-xl-0"></i>
+                  </div>  
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-title text-md-center text-xl-left">CONTACTS</p>
+                  <div class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
+                    <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">{{ contacts|length }}</h3>
+                    <i class="ti-user icon-md text-muted mb-0 mb-md-3 mb-xl-0"></i>
+                  </div>  
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-title text-md-center text-xl-left">LEADS</p>
+                  <div class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
+                    <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">{{leads_count|length}}</h3>
+                    <i class="ti-agenda icon-md text-muted mb-0 mb-md-3 mb-xl-0"></i>
+                  </div>  
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-title text-md-center text-xl-left">APPLICATIONS</p>
+                  <div class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
+                    <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">{{opportunities|length}}</h3>
+                    <i class="ti-layers-alt icon-md text-muted mb-0 mb-md-3 mb-xl-0"></i>
+                  </div>  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">New Contacts</h4>
+                  <div class="table-responsive pt-3">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>
+                            Index
+                          </th>
+                          <th>
+                            Phone number
+                          </th>
+                          <th>
+                            Full name
+                          </th>
+                          <th>
+                            Date
+                          </th>
+                          <th>
+                            Email
+                          </th>
+                        </tr>
+                      </thead>
+                      {% for contact in contacts %}
+                      <tbody>
+                        <tr>
+                          <td>
+                            {{contact.counter}}
+                          </td>
+                          <td>
+                            {{contact.phone}}
+                          </td>
+                          <td>
+                            {{contact.first_name}} {{contact.last_name}}
+                          </td>
+                          <td>
+                            {{contact.created_on}}  
+                          </td>
+                          <td>
+                            {{contact.email}}
+                          </td>
+                        </tr>
+                      </tbody>
+                      {% endfor %}
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">New Leads</h4>
+                  <div class="table-responsive pt-3">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>
+                            Index
+                          </th>
+                          <th>
+                            Post Code
+                          </th>
+                          <th>
+                            Phone number
+                          </th>
+                          <th>
+                            Full name
+                          </th>
+                          <th>
+                            Date
+                          </th>
+                          <th>
+                            Email
+                          </th>
+                        </tr>
+                      </thead>
+                      {% for lead in leads %}
+                      <tbody>
+                        <tr>
+                          <td>
+                            {{lead.counter}}
+                          </td>
+                          <td>
+                            {{lead.phone}}
+                          </td>
+                          <td>
+                            {{lead.first_name}} {{contact.last_name}}
+                          </td>
+                          <td>
+                            {{contact.created_on}}  
+                          </td>
+                          <td>
+                            {contact.email}
+                          </td>
+                        </tr>
+                      </tbody>
+                      {% endfor %}
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2018 <a href="https://www.templatewatch.com/" target="_blank">Templatewatch</a>. All rights reserved.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted &amp; made with <i class="ti-heart text-danger ml-1"></i></span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+{% endblock %}
