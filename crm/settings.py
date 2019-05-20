@@ -137,7 +137,7 @@ if STORAGE_TYPE == 'normal':
 
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATIC_URL = '/static/'
-    STATICFILES_DIRS = (BASE_DIR + '/staticfiles',)
+    STATICFILES_DIRS = ('/tmp/build_fafc569a3379bb9a1a4a39a39f779f6f',)
     COMPRESS_ROOT = BASE_DIR + '/static/'
 
 
