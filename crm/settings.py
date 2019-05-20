@@ -153,7 +153,6 @@ if STORAGE_TYPE == 'normal':
 
     STATIC_URL = '/static/'
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-    STATICFILES_DIRS = (BASE_DIR + '/static',)
     COMPRESS_ROOT = BASE_DIR + '/static/'
 
 elif STORAGE_TYPE == 's3-storage':
