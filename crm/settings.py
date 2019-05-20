@@ -278,7 +278,7 @@ except ImportError:
     pass
 
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 GP_CLIENT_ID = os.getenv('GP_CLIENT_ID', False)
 GP_CLIENT_SECRET = os.getenv('GP_CLIENT_SECRET', False)
