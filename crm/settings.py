@@ -73,6 +73,23 @@ WSGI_APPLICATION = 'crm.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'dj_crm',
+#         'USER': 'postgres',
+#         'PASSWORD': 'root',
+#         'HOST': os.getenv('DB_HOST', '127.0.0.1'),
+#         'PORT': os.getenv('DB_PORT', '5432')
+#     }
+# }
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL')
+    )
+}
+
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), ]
 
 # Password validation
@@ -131,15 +148,12 @@ AUTH_USER_MODEL = 'common.User'
 STORAGE_TYPE = os.getenv('STORAGE_TYPE', 'normal')
 
 if STORAGE_TYPE == 'normal':
-
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
     MEDIA_URL = '/media/'
 
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATIC_URL = '/static/'
-    STATICFILES_DIRS = ('/tmp/build_fafc569a3379bb9a1a4a39a39f779f6f',)
+    STATICFILES_DIRS = (BASE_DIR + '/static',)
     COMPRESS_ROOT = BASE_DIR + '/static/'
-
 
 elif STORAGE_TYPE == 's3-storage':
 
@@ -178,7 +192,7 @@ elif STORAGE_TYPE == 's3-storage':
 
 COMPRESS_ROOT = BASE_DIR + '/static/'
 
-COMPRESS_ENABLED = False
+COMPRESS_ENABLED = True
 
 COMPRESS_OFFLINE_CONTEXT = {
     'STATIC_URL': 'STATIC_URL',
@@ -256,12 +270,7 @@ try:
 except ImportError:
     pass
 
+
 GP_CLIENT_ID = os.getenv('GP_CLIENT_ID', False)
 GP_CLIENT_SECRET = os.getenv('GP_CLIENT_SECRET', False)
 ENABLE_GOOGLE_LOGIN = os.getenv('ENABLE_GOOGLE_LOGIN', False)
-
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL')
-    )
-}
