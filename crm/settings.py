@@ -132,16 +132,14 @@ STORAGE_TYPE = os.getenv('STORAGE_TYPE', 'normal')
 
 if STORAGE_TYPE == 'normal':
 
-    if not os.path.exists('staticfiles'):
-        os.mkdir('staticfiles')
-
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
     MEDIA_URL = '/media/'
 
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATIC_URL = '/static/'
     STATICFILES_DIRS = (BASE_DIR + '/staticfiles',)
     COMPRESS_ROOT = BASE_DIR + '/static/'
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 elif STORAGE_TYPE == 's3-storage':
 
