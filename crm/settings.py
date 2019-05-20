@@ -132,7 +132,7 @@ STORAGE_TYPE = os.getenv('STORAGE_TYPE', 'normal')
 
 if STORAGE_TYPE == 'normal':
 
-    if not os.path.exists(staticfiles):
+    if not os.path.exists('staticfiles'):
         os.path.mkdir('staticfiles')
 
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
