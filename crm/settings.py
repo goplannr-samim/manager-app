@@ -131,6 +131,7 @@ AUTH_USER_MODEL = 'common.User'
 STORAGE_TYPE = os.getenv('STORAGE_TYPE', 'normal')
 
 if STORAGE_TYPE == 'normal':
+
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
     MEDIA_URL = '/media/'
 
@@ -260,6 +261,6 @@ ENABLE_GOOGLE_LOGIN = os.getenv('ENABLE_GOOGLE_LOGIN', False)
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=config('DATABASE_URL')
+        default=os.getenv('DATABASE_URL')
     )
 }
