@@ -146,15 +146,20 @@ EMAIL_USE_TLS = True
 AUTH_USER_MODEL = 'common.User'
 
 STORAGE_TYPE = os.getenv('STORAGE_TYPE', 'normal')
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), ]
 
 
 if STORAGE_TYPE == 'normal':
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
     MEDIA_URL = '/media/'
 
+    STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
     STATIC_URL = '/static/'
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+    # Extra places for collectstatic to find static files.
+    STATICFILES_DIRS = (
+        os.path.join(PROJECT_ROOT, 'static'),
+    )
+
     COMPRESS_ROOT = BASE_DIR + '/static/'
 
 elif STORAGE_TYPE == 's3-storage':
