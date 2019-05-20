@@ -135,7 +135,7 @@ if STORAGE_TYPE == 'normal':
     MEDIA_URL = '/media/'
 
     STATIC_URL = '/static/'
-    STATICFILES_DIRS = (BASE_DIR + '/static',)
+    STATICFILES_DIRS = (BASE_DIR + '/staticfiles',)
     COMPRESS_ROOT = BASE_DIR + '/static/'
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
@@ -260,4 +260,6 @@ ENABLE_GOOGLE_LOGIN = os.getenv('ENABLE_GOOGLE_LOGIN', False)
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL'))}
+        default=os.getenv('DATABASE_URL')
+    )
+}
