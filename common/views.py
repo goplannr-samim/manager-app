@@ -83,7 +83,7 @@ class HomeView(LoginRequiredMixin, TemplateView):
 
         context["accounts"] = accounts
         context["contacts"] = contacts
-        context["leads_count"] = leads
+        context["leads"] = leads
         context["opportunities"] = opportunities
         return context
 
