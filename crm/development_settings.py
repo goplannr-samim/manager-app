@@ -1,5 +1,4 @@
 import os
-import dj_database_url
 from celery.schedules import crontab
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -9,7 +8,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'mwx@&97%!$fx_*zgj(2ygi^(s=oh5j(cqb$=+-mkd9scbt!0v0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -72,6 +71,17 @@ WSGI_APPLICATION = 'crm.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'django_crm',
+        'USER': 'goplannr_samim',
+        'PASSWORD': 'goplannr-samim',
+        'HOST': os.getenv('DB_HOST', '127.0.0.1'),
+        'PORT': os.getenv('DB_PORT', '5432')
+    }
+}
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), ]
 
@@ -137,7 +147,6 @@ if STORAGE_TYPE == 'normal':
     STATIC_URL = '/static/'
     STATICFILES_DIRS = (BASE_DIR + '/static',)
     COMPRESS_ROOT = BASE_DIR + '/static/'
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 elif STORAGE_TYPE == 's3-storage':
 
@@ -176,7 +185,7 @@ elif STORAGE_TYPE == 's3-storage':
 
 COMPRESS_ROOT = BASE_DIR + '/static/'
 
-COMPRESS_ENABLED = False
+COMPRESS_ENABLED = True
 
 COMPRESS_OFFLINE_CONTEXT = {
     'STATIC_URL': 'STATIC_URL',
@@ -254,18 +263,7 @@ try:
 except ImportError:
     pass
 
+
 GP_CLIENT_ID = os.getenv('GP_CLIENT_ID', False)
 GP_CLIENT_SECRET = os.getenv('GP_CLIENT_SECRET', False)
 ENABLE_GOOGLE_LOGIN = os.getenv('ENABLE_GOOGLE_LOGIN', False)
-
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'django_crm',
-        'USER': 'goplannr_samim',
-        'PASSWORD': 'goplannr-samim',
-        'HOST': os.getenv('DB_HOST', '127.0.0.1'),
-        'PORT': os.getenv('DB_PORT', '5432')
-    }
-}
