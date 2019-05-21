@@ -7,21 +7,15 @@ class LeadForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         assigned_users = kwargs.pop('assigned_to', [])
-        contacts = kwargs.pop('contacts', [])
         super(LeadForm, self).__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs = {"class": "form-control"}
         if self.data.get('status') == 'converted':
-            self.fields['account_name'].required = True
             self.fields['email'].required = True
 
         self.fields['assigned_to'].queryset = assigned_users
         self.fields['assigned_to'].required = False
 
-        self.fields['contacts'].queryset = contacts
-        self.fields['contacts'].required = True
-
-        self.fields['title'].required = True
         for key, value in self.fields.items():
             if key == 'phone':
                 value.widget.attrs['placeholder'] =\
@@ -55,7 +49,7 @@ class LeadForm(forms.ModelForm):
                   'website', 'description',
                   'address_line', 'street',
                   'city', 'state', 'postcode', 'country',
-                  'contacts'
+                  'first_name', 'last_name'
                   )
 
 

@@ -4,7 +4,7 @@
 {% block content%}
 
 <!-- OPPORTUNITY VIEW STARTS -->
-  <div class="main_container" id="maincontainer">
+  <div class="main_container content-wrapper" id="maincontainer">
     <div class="overview_form_block row marl justify-content-center">
       <div class="col-md-6">
         <div class="card">
@@ -23,7 +23,6 @@
                   </div>
                 </span> -->
               </h5>
-              <a href="{% url 'common:edit_user' user_obj.id %}" class="btn btn-success edit">Edit</a>
             </div>
             <div class="row marl no-gutters">
               <div class="col-md-8">
@@ -59,6 +58,7 @@
                   {% endif %}
                 </div>
               </div>
+              <a href="{% url 'common:edit_user' user_obj.id %}" class="btn btn-success edit btn-small">Edit</a>  
             </div>
           </div>
         </div>

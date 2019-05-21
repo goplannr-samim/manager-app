@@ -13,24 +13,24 @@ from contacts.models import Contact
 class Lead(models.Model):
     title = models.CharField(
         pgettext_lazy("Treatment Pronouns for the customer",
-                      "Title"), max_length=64)
-    # first_name = models.CharField(("First name"), null=True, max_length=255)
-    # last_name = models.CharField(("Last name"), null=True, max_length=255)
+                      "Title"), max_length=64, blank=True, null=True)
+    first_name = models.CharField(("First name"), null=True, max_length=255)
+    last_name = models.CharField(("Last name"), null=True, max_length=255)
     email = models.EmailField(null=True, blank=True)
-    phone = PhoneNumberField(null=True, blank=True)
+    phone = PhoneNumberField(null=True)
     status = models.CharField(
         _("Status of Lead"),
-        max_length=255, blank=True,
+        max_length=255,
         null=True, choices=LEAD_STATUS)
     source = models.CharField(
         _("Source of Lead"), max_length=255,
         blank=True, null=True, choices=LEAD_SOURCE)
     address_line = models.CharField(
-        _("Address"), max_length=255, blank=True, null=True)
+        _("Address"), max_length=255, null=True)
     street = models.CharField(
         _("Street"), max_length=55, blank=True, null=True)
-    city = models.CharField(_("City"), max_length=255, blank=True, null=True)
-    state = models.CharField(_("State"), max_length=255, blank=True, null=True)
+    city = models.CharField(_("City"), max_length=255, null=True)
+    state = models.CharField(_("State"), max_length=255, null=True)
     postcode = models.CharField(
         _("Post/Zip-code"), max_length=64, blank=True, null=True)
     country = models.CharField(
