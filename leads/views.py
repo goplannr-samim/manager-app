@@ -39,25 +39,11 @@ class LeadListView(LoginRequiredMixin, TemplateView):
 
         request_post = self.request.POST
         if request_post:
-            if request_post.get('name'):
+            if request_post.get('search_text'):
                 queryset = queryset.filter(
-                    Q(first_name__icontains=request_post.get('name')) &
-                    Q(last_name__icontains=request_post.get('name')))
-            if request_post.get('city'):
-                queryset = queryset.filter(
-                    city__icontains=request_post.get('city'))
-            if request_post.get('email'):
-                queryset = queryset.filter(
-                    email__icontains=request_post.get('email'))
-            if request_post.get('status'):
-                queryset = queryset.filter(status=request_post.get('status'))
-            if request_post.get('tag'):
-                queryset = queryset.filter(tags__in=request_post.get('tag'))
-            if request_post.get('source'):
-                queryset = queryset.filter(source=request_post.get('source'))
-            if request_post.getlist('assigned_to'):
-                queryset = queryset.filter(
-                    assigned_to__id__in=request_post.getlist('assigned_to'))
+                    Q(first_name__icontains=request_post.get('search_text')) |
+                    Q(last_name__icontains=request_post.get('search_text')) |
+                    Q(phone__icontains=request_post.get('search_text')))
         return queryset
 
     def get_context_data(self, **kwargs):
@@ -101,16 +87,14 @@ class LeadListView(LoginRequiredMixin, TemplateView):
 
 
 def create_lead(request):
-    import pdb; pdb.set_trace()
     template_name = "create_lead.html"
     users = User.objects.filter(is_active=True).order_by('email')
-    contacts = Contact.objects.all()
-    form = LeadForm(assigned_to=users, contacts=contacts)
+    form = LeadForm(assigned_to=users)
 
     if request.POST:
         form = LeadForm(
             request.POST, request.FILES,
-            assigned_to=users, contacts=contacts)
+            assigned_to=users)
         if form.is_valid():
             lead_obj = form.save(commit=False)
             lead_obj.created_by = request.user
@@ -201,11 +185,8 @@ def create_lead(request):
     context["countries"] = COUNTRIES
     context["status"] = LEAD_STATUS
     context["source"] = LEAD_SOURCE
-    context['contacts'] = contacts
     context["assignedto_list"] = [
         int(i) for i in request.POST.getlist('assigned_to', []) if i]
-    context["contact_list"] = [
-        int(i) for i in request.POST.getlist('contact', []) if i]
 
     return render(request, template_name, context)
 
@@ -277,12 +258,6 @@ def update_lead(request, pk):
                         instance=lead_record,
                         initial=initial, assigned_to=users)
 
-        if request.POST.get('status') == "converted":
-            form.fields['account_name'].required = True
-            form.fields['email'].required = True
-        else:
-            form.fields['account_name'].required = False
-            form.fields['email'].required = False
         if form.is_valid():
             assigned_to_ids = lead_record.assigned_to.all().values_list(
                 'id', flat=True)
@@ -342,7 +317,7 @@ def update_lead(request, pk):
 
             if request.POST.get('status') == "converted":
                 account_object = Account.objects.create(
-                    created_by=request.user, name=lead_obj.account_name,
+                    created_by=request.user,
                     email=lead_obj.email, phone=lead_obj.phone,
                     description=request.POST.get('description'),
                     website=request.POST.get('website'),

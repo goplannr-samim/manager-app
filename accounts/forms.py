@@ -54,7 +54,7 @@ class AccountForm(forms.ModelForm):
 
     class Meta:
         model = Account
-        fields = ('name', 'phone', 'email', 'website', 'industry',
+        fields = ('phone', 'email', 'website', 'industry',
                   'description', 'status',
                   'billing_address_line', 'billing_street',
                   'billing_city', 'billing_state',

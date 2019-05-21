@@ -24,8 +24,8 @@ class Account(models.Model):
         ('close', 'Close')
     )
 
-    name = models.CharField(pgettext_lazy(
-        "Name of Account", "Name"), max_length=64)
+    # name = models.CharField(pgettext_lazy(
+    #     "Name of Account", "Name"), max_length=64)
     email = models.EmailField()
     phone = PhoneNumberField(null=True)
     industry = models.CharField(
