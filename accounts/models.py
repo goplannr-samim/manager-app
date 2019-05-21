@@ -24,8 +24,8 @@ class Account(models.Model):
         ('close', 'Close')
     )
 
-    # name = models.CharField(pgettext_lazy(
-    #     "Name of Account", "Name"), max_length=64)
+    name = models.CharField(pgettext_lazy(
+        "Name of Account", "Name"), max_length=64)
     email = models.EmailField()
     phone = PhoneNumberField(null=True)
     industry = models.CharField(
@@ -61,10 +61,10 @@ class Account(models.Model):
     lead = models.ForeignKey(
         'leads.Lead', related_name="account_leads",
         on_delete=models.SET_NULL, null=True)
-    contact_name = models.CharField(pgettext_lazy(
-        "Name of Contact", "Contact Name"), max_length=120)
-    contacts = models.ManyToManyField(
-        'contacts.Contact', related_name="account_contacts")
+    # contact_name = models.CharField(pgettext_lazy(
+    #     "Name of Contact", "Contact Name"), max_length=120)
+    # contacts = models.ManyToManyField(
+    #     'contacts.Contact', related_name="account_contacts")
 
     def __str__(self):
         return self.name

@@ -29,19 +29,12 @@ class AccountsListView(LoginRequiredMixin, TemplateView):
             queryset = queryset.filter(created_by=self.request.user.id)
 
         request_post = self.request.POST
-        if request_post:
-            if request_post.get('name'):
-                queryset = queryset.filter(
-                    name__icontains=request_post.get('name'))
-            if request_post.get('city'):
-                queryset = queryset.filter(
-                    billing_city__contains=request_post.get('city'))
-            if request_post.get('industry'):
-                queryset = queryset.filter(
-                    industry__icontains=request_post.get('industry'))
-            if request_post.get('tag'):
-                queryset = queryset.filter(tags__in=request_post.get('tag'))
 
+        if request_post:
+            if request_post.get('search_text'):
+                queryset = queryset.filter(
+                    Q(name__icontains=request_post.get('search_text')) |
+                    Q(phone__icontains=request_post.get('search_text')))
         return queryset
 
     def get_context_data(self, **kwargs):
@@ -190,7 +183,6 @@ class AccountDetailView(LoginRequiredMixin, DetailView):
             "attachments": account_record.account_attachment.all(),
             "opportunity_list": Opportunity.objects.filter(
                 account=account_record),
-            "contacts": account_record.contacts.all(),
             "users": User.objects.filter(is_active=True).order_by('email'),
             "cases": Case.objects.filter(account=account_record),
             "stages": STAGES,

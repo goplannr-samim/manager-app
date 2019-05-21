@@ -399,11 +399,12 @@ class DeleteLeadView(LoginRequiredMixin, View):
 
 def convert_lead(request, pk):
     lead_obj = get_object_or_404(Lead, id=pk)
-    if lead_obj.account_name and lead_obj.email:
+    if lead_obj.first_name and lead_obj.email:
         lead_obj.status = 'converted'
         lead_obj.save()
+        full_name = '{} {}'.format(lead_obj.first_name, lead_obj.last_name)
         account_object = Account.objects.create(
-            created_by=request.user, name=lead_obj.account_name,
+            created_by=request.user, name=full_name,
             email=lead_obj.email, phone=lead_obj.phone,
             description=lead_obj.description,
             website=lead_obj.website,
@@ -415,9 +416,6 @@ def convert_lead(request, pk):
             billing_country=lead_obj.country,
             lead=lead_obj
         )
-        contacts_list = lead_obj.contacts.all().values_list('id', flat=True)
-        account_object.contacts.add(*contacts_list)
-        account_object.save()
         current_site = get_current_site(request)
         for assigned_to_user in lead_obj.assigned_to.all().values_list(
                 'id', flat=True):

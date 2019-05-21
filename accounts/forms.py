@@ -2,7 +2,6 @@ from django import forms
 from .models import Account
 from common.models import Comment, Attachments
 from leads.models import Lead
-from contacts.models import Contact
 from django.db.models import Q
 
 
@@ -40,9 +39,8 @@ class AccountForm(forms.ModelForm):
         ).exclude(status='closed')
         if request_user:
             self.fields["lead"].queryset = Lead.objects.filter(
-                Q(assigned_to__in=[request_user]) | Q(created_by=request_user)).exclude(status='closed')
-            self.fields["contacts"].queryset = Contact.objects.filter(
-                Q(assigned_to__in=[request_user]) | Q(created_by=request_user))
+                Q(assigned_to__in=[request_user]) |
+                Q(created_by=request_user)).exclude(status='closed')
 
         if account_view:
             self.fields['billing_address_line'].required = True
@@ -58,7 +56,7 @@ class AccountForm(forms.ModelForm):
                   'description', 'status',
                   'billing_address_line', 'billing_street',
                   'billing_city', 'billing_state',
-                  'billing_postcode', 'billing_country', 'lead', 'contacts')
+                  'billing_postcode', 'billing_country', 'lead')
 
 
 class AccountCommentForm(forms.ModelForm):
