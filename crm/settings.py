@@ -73,22 +73,29 @@ WSGI_APPLICATION = 'crm.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'dj_crm',
-#         'USER': 'postgres',
-#         'PASSWORD': 'root',
+#         'NAME': 'django_crm',
+#         'USER': 'goplannr_samim',
+#         'PASSWORD': 'goplannr-samim',
 #         'HOST': os.getenv('DB_HOST', '127.0.0.1'),
 #         'PORT': os.getenv('DB_PORT', '5432')
 #     }
 # }
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL')
-    )
-}
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=os.getenv('DATABASE_URL')
+#     )
+# }
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), ]
 
@@ -278,7 +285,7 @@ except ImportError:
     pass
 
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 GP_CLIENT_ID = os.getenv('GP_CLIENT_ID', False)
 GP_CLIENT_SECRET = os.getenv('GP_CLIENT_SECRET', False)
