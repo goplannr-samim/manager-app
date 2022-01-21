@@ -28,7 +28,7 @@ docutils==0.14
 et-xmlfile==1.0.1
 gunicorn==19.9.0
 idna==2.8
-ipython==7.5.0
+ipython==7.16.3
 ipython-genutils==0.2.0
 jdcal==1.4.1
 jedi==0.13.3
