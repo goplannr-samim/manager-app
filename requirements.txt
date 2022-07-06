@@ -35,7 +35,7 @@ jedi==0.13.3
 jmespath==0.9.4
 kombu==4.3.0
 libsass==0.18.0
-lxml==4.3.2
+lxml==4.9.1
 more-itertools==7.0.0
 openpyxl==2.6.0
 parso==0.4.0
